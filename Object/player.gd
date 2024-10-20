@@ -1,6 +1,5 @@
 extends Node2D
 
-var _is_released = false
 @export var hp = 100
 const keycode_array: Array[Key] = [
 	KEY_A,
@@ -37,18 +36,12 @@ func _ready() -> void:
 	current_keycode_array = []
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if _is_released:
-		_is_released = false
-		current_keycode_array.clear()
-		print("release!")
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		for keycode in current_keycode_array:
 			if event.keycode == keycode and event.is_released():
-				_is_released = true
+				current_keycode_array.clear()
+				print("release!")
 
 func append_keycode(keycode: Key) -> void:
 	current_keycode_array.append(keycode)

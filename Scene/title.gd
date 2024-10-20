@@ -1,10 +1,17 @@
 extends CanvasLayer
 
-signal next_scene
+var next_scene = "res://Scene/Game.tscn"
+
+var is_press_any_button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#Messageとかの初期化をしやなあかんかも
+	is_press_any_button = false
+	$Title.show()
+	$Button.show()
+	$Message.text = ""
+	$Message.hide()
 	# tweenの作成
 	var tween = get_tree().create_tween()
 	# 1秒かけて透明にする
@@ -15,17 +22,13 @@ func _ready() -> void:
 	tween.set_loops()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_button_pressed() -> void:
 	show_count()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEvent:
-		if event.is_pressed():
+		if event.is_pressed() and not is_press_any_button:
+			is_press_any_button = true
 			show_count()
 
 func show_count() -> void:
@@ -40,7 +43,7 @@ func show_count() -> void:
 	$Message.text = "Go !!!"
 	$Message.show()
 	await get_tree().create_timer(1.0).timeout
-	next_scene.emit()
+	get_tree().change_scene_to_file(next_scene)
 
 func show_message(text):
 	$Message.text = text
