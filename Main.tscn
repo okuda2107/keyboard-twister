@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://c44j1n3ff6eye"]
+[gd_scene load_steps=4 format=3 uid="uid://d1j8ndd7oot7h"]
 
-[ext_resource type="PackedScene" uid="uid://mdkvgvkgt7ej" path="res://Player.tscn" id="1_f125j"]
+[ext_resource type="Script" path="res://main.gd" id="1_w2wl5"]
+[ext_resource type="PackedScene" uid="uid://c44j1n3ff6eye" path="res://Scene/Game.tscn" id="2_ubbke"]
+[ext_resource type="PackedScene" uid="uid://bvcdface3q068" path="res://Scene/Title.tscn" id="2_uhbqh"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_w2wl5")
 
-[node name="Player" parent="." instance=ExtResource("1_f125j")]
-position = Vector2(200, 272)
+[node name="Title" parent="." instance=ExtResource("2_uhbqh")]
 
-[node name="SetKeyTimer" type="Timer" parent="."]
+[node name="Game" parent="." instance=ExtResource("2_ubbke")]
+visible = false
 
-[connection signal="ready" from="." to="Player" method="_on_main_ready"]
+[connection signal="next_scene" from="Title" to="." method="game_start"]

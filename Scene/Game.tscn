@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44j1n3ff6eye"]
+
+[ext_resource type="Script" path="res://Scene/game.gd" id="1_k1cmv"]
+[ext_resource type="PackedScene" uid="uid://mdkvgvkgt7ej" path="res://Object/Player.tscn" id="2_shy4d"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_k1cmv")
+
+[node name="Player" parent="." instance=ExtResource("2_shy4d")]
+position = Vector2(200, 272)
+
+[node name="SetKeyTimer" type="Timer" parent="."]
+
+[node name="PressKeyTimer" type="Timer" parent="."]
+
+[connection signal="set_key" from="." to="Player" method="append_keycode"]
+[connection signal="timeout" from="SetKeyTimer" to="." method="_on_set_key_timer_timeout"]
