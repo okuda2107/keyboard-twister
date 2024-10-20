@@ -6,3 +6,7 @@
 
 [node name="Player" parent="." instance=ExtResource("1_f125j")]
 position = Vector2(200, 272)
+
+[node name="SetKeyTimer" type="Timer" parent="."]
+
+[connection signal="ready" from="." to="Player" method="_on_main_ready"]
