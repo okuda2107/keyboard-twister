@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://mdkvgvkgt7ej"]
 
 [ext_resource type="Script" path="res://Object/player.gd" id="1_gh4rw"]
-[ext_resource type="Texture2D" uid="uid://br6ckwpp88011" path="res://test_asset/art/playerGrey_up2.png" id="2_ogpoy"]
+[ext_resource type="Texture2D" uid="uid://bfk415bbjed7w" path="res://asset/yuusha.png" id="2_f44ol"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_gh4rw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ogpoy")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_f44ol")

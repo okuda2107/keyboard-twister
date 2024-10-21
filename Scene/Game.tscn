@@ -8,7 +8,7 @@
 script = ExtResource("1_k1cmv")
 
 [node name="Player" parent="." instance=ExtResource("2_shy4d")]
-position = Vector2(200, 272)
+position = Vector2(650, 568)
 
 [node name="SetKeyTimer" type="Timer" parent="."]
 
