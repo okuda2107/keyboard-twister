@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://b5cjgn0iuobqd"]
+[gd_scene load_steps=3 format=3 uid="uid://b5cjgn0iuobqd"]
+
+[ext_resource type="Texture2D" uid="uid://d4ckpc4882jwd" path="res://asset/obake.png" id="1_omuuc"]
+[ext_resource type="Script" path="res://Object/enemy.gd" id="1_wnmta"]
 
 [node name="Enemy" type="Node2D"]
+script = ExtResource("1_wnmta")
+
+[node name="Obake" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_omuuc")

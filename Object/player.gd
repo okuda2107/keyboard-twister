@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var hp = 100
+@export var damage = 10
 const keycode_array: Array[Key] = [
 	KEY_A,
 	KEY_B,
@@ -29,19 +30,44 @@ const keycode_array: Array[Key] = [
 	KEY_Y,
 	KEY_Z,
 ]
-var current_keycode_array: Array[Key] = []
+var press_keycode_array: Array[Key] = []
+var press_keycode: Key
+var is_attack_mode = false
+signal press_key
+signal release_keys
+signal attack_enemy(damage: int)
+signal knock_down
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_keycode_array = []
+	press_keycode_array = []
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		for keycode in current_keycode_array:
+		for keycode in press_keycode_array:
 			if event.keycode == keycode and event.is_released():
-				current_keycode_array.clear()
-				print("release!")
+				press_keycode_array.clear()
+				release_keys.emit()
+		if event.keycode == press_keycode and event.is_pressed():
+			press_keycode_array.append(press_keycode)
+			press_key.emit()
+		if event.is_pressed() and is_attack_mode:
+			attack_enemy.emit(damage)
 
-func append_keycode(keycode: Key) -> void:
-	current_keycode_array.append(keycode)
+func receive_keycode(keycode: Key) -> void:
+	press_keycode = keycode
+
+
+func _on_enemy_attack_player(damage: int) -> void:
+	hp -= damage
+	if hp <= 0:
+		knock_down.emit()
+
+
+func _on_game_failed_capture(count: int) -> void:
+	is_attack_mode = true
+
+
+func _on_enemy_calming_down() -> void:
+	is_attack_mode = false
