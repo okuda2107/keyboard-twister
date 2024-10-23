@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkn6f02e5a34r"]
+[gd_scene load_steps=4 format=3 uid="uid://dkn6f02e5a34r"]
 
+[ext_resource type="Script" path="res://Object/background.gd" id="1_07goe"]
 [ext_resource type="Texture2D" uid="uid://bhpl7ce6cnj4w" path="res://asset/Stars.png" id="1_lb64b"]
 [ext_resource type="Texture2D" uid="uid://bpd16ap23y0li" path="res://asset/farback.png" id="1_rekbv"]
 
-[node name="Background" type="Node2D"]
+[node name="Background" type="ParallaxBackground"]
+script = ExtResource("1_07goe")
 
 [node name="Stars_layer" type="ParallaxLayer" parent="."]
 
@@ -18,8 +20,8 @@ offset_bottom = 700.0
 color = Color(0, 0, 0, 1)
 
 [node name="Farback_layer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1300, 700)
 
 [node name="Farback" type="Sprite2D" parent="Farback_layer"]
-position = Vector2(-10, -10)
 texture = ExtResource("1_rekbv")
 centered = false

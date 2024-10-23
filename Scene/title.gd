@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var next_scene = "res://Scene/Game.tscn"
+signal next_scene
 
 var is_press_any_button
 
@@ -43,7 +43,7 @@ func show_count() -> void:
 	$Message.text = "Go !!!"
 	$Message.show()
 	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file(next_scene)
+	next_scene.emit()
 
 func show_message(text):
 	$Message.text = text
