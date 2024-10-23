@@ -1,6 +1,6 @@
 extends Node2D
 
-var prev_scene = "res://Scene/Title.tscn"
+signal prev_scene
 
 var rng = RandomNumberGenerator.new()
 signal set_key(Key)
@@ -16,7 +16,7 @@ func game_over() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEvent:
 		if event.is_action_pressed("ui_cancel"):
-			get_tree().change_scene_to_file(prev_scene)
+			prev_scene.emit()
 
 func _on_set_key_timer_timeout() -> void:
 	rng.randomize()
