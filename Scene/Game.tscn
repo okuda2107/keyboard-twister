@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scene/game.gd" id="1_k1cmv"]
 [ext_resource type="PackedScene" uid="uid://mdkvgvkgt7ej" path="res://Object/Player.tscn" id="2_shy4d"]
-[ext_resource type="PackedScene" uid="uid://c8g8y8qnvrly8" path="res://Object/Result.tscn" id="3_hxl8o"]
+[ext_resource type="PackedScene" uid="uid://c8g8y8qnvrly8" path="res://Object/Message.tscn" id="3_hxl8o"]
 [ext_resource type="PackedScene" uid="uid://b5cjgn0iuobqd" path="res://Object/Enemy.tscn" id="4_ovvyv"]
 
 [node name="Game" type="Node2D"]
@@ -17,7 +17,7 @@ wait_time = 5.0
 [node name="PressKeyTimer" type="Timer" parent="."]
 wait_time = 7.0
 
-[node name="Result" parent="." instance=ExtResource("3_hxl8o")]
+[node name="Message" parent="." instance=ExtResource("3_hxl8o")]
 visible = false
 
 [node name="Enemy" parent="." instance=ExtResource("4_ovvyv")]
