@@ -27,6 +27,7 @@ scale = Vector2(4, 4)
 [connection signal="failed_capture" from="." to="Player" method="_on_game_failed_capture"]
 [connection signal="failed_capture" from="." to="Enemy" method="_on_game_failed_capture"]
 [connection signal="set_key" from="." to="Player" method="receive_keycode"]
+[connection signal="show_message" from="." to="Message" method="_on_game_show_message"]
 [connection signal="attack_enemy" from="Player" to="Enemy" method="_on_player_attack_enemy"]
 [connection signal="knock_down" from="Player" to="." method="_on_player_knock_down"]
 [connection signal="press_key" from="Player" to="." method="_on_player_press_key"]
