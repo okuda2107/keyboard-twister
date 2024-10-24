@@ -34,7 +34,7 @@ var press_keycode_array: Array[Key] = []
 var press_keycode: Key
 var is_attack_mode = false
 signal press_key
-signal release_keys
+signal miss
 signal attack_enemy(damage: int)
 signal knock_down
 
@@ -47,13 +47,19 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		for keycode in press_keycode_array:
 			if event.keycode == keycode and event.is_released():
-				press_keycode_array.clear()
-				release_keys.emit()
-		if event.keycode == press_keycode and event.is_pressed():
-			press_keycode_array.append(press_keycode)
-			press_key.emit()
+				miss_press()
+		if event.is_pressed():
+			if event.keycode == press_keycode:
+				press_keycode_array.append(press_keycode)
+				press_key.emit()
+			else:
+				miss_press()
 		if event.is_pressed() and is_attack_mode:
 			attack_enemy.emit(damage)
+
+func miss_press() -> void:
+	press_keycode_array.clear()
+	miss.emit()
 
 func receive_keycode(keycode: Key) -> void:
 	press_keycode = keycode

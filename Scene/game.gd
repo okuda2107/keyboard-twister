@@ -14,7 +14,11 @@ func _ready() -> void:
 
 
 func game_over() -> void:
-	print("game over!!")
+	$Player.set_process(false)
+	$Enemy.set_process(false)
+	show_result.emit(1)
+	await get_tree().create_timer(3).timeout
+	prev_scene.emit()
 
 func calc_key(key) -> String:
 	match key:
@@ -57,7 +61,7 @@ func _on_set_key_timer_timeout() -> void:
 	var random_int = rng.randi_range(0, $Player.keycode_array.size()-1)
 	var key_code = $Player.keycode_array[random_int]
 	var key_string = calc_key(key_code)
-	show_message.emit("Press" + key_string + "!!!")
+	show_message.emit("Press " + key_string + " !!!")
 	set_key.emit(key_code)
 	$PressKeyTimer.start()
 
@@ -66,14 +70,9 @@ func _on_press_key_timer_timeout() -> void:
 
 
 func _on_player_press_key() -> void:
+	$Message.hide()
 	$PressKeyTimer.stop()
 	$SetKeyTimer.start()
-
-
-func _on_player_release_keys() -> void:
-	$PressKeyTimer.stop()
-	$SetKeyTimer.stop()
-	failed_capture.emit()
 
 
 func _on_enemy_calming_down() -> void:
@@ -82,3 +81,9 @@ func _on_enemy_calming_down() -> void:
 
 func _on_player_knock_down() -> void:
 	game_over()
+
+
+func _on_player_miss() -> void:
+	$PressKeyTimer.stop()
+	$SetKeyTimer.stop()
+	failed_capture.emit(1)
