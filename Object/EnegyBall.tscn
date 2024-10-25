@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://i5rn8sq6jjop"]
+
+[ext_resource type="Script" path="res://Object/enegy_ball.gd" id="1_t6epl"]
+[ext_resource type="Texture2D" uid="uid://ukcudh03pmj1" path="res://asset/enagy_ball.png" id="2_ycout"]
+
+[node name="EnegyBall" type="Node2D"]
+script = ExtResource("1_t6epl")
+
+[node name="EnagyBall" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ycout")

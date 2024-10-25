@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c44j1n3ff6eye"]
+[gd_scene load_steps=6 format=3 uid="uid://c44j1n3ff6eye"]
 
 [ext_resource type="Script" path="res://Scene/game.gd" id="1_k1cmv"]
 [ext_resource type="PackedScene" uid="uid://mdkvgvkgt7ej" path="res://Object/Player.tscn" id="2_shy4d"]
 [ext_resource type="PackedScene" uid="uid://c8g8y8qnvrly8" path="res://Object/Message.tscn" id="3_hxl8o"]
 [ext_resource type="PackedScene" uid="uid://b5cjgn0iuobqd" path="res://Object/Enemy.tscn" id="4_ovvyv"]
+[ext_resource type="PackedScene" uid="uid://ods7dy7e57ru" path="res://Object/Barrier.tscn" id="5_i1twp"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_k1cmv")
@@ -23,6 +24,10 @@ visible = false
 [node name="Enemy" parent="." instance=ExtResource("4_ovvyv")]
 position = Vector2(650, 170)
 scale = Vector2(4, 4)
+
+[node name="Barrier" parent="." instance=ExtResource("5_i1twp")]
+visible = false
+position = Vector2(650, 210)
 
 [connection signal="failed_capture" from="." to="Player" method="_on_game_failed_capture"]
 [connection signal="failed_capture" from="." to="Enemy" method="_on_game_failed_capture"]
