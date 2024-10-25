@@ -14,8 +14,7 @@ func _ready() -> void:
 
 
 func game_over() -> void:
-	$Player.set_process(false)
-	$Enemy.set_process(false)
+	self.set_process(false)
 	show_result.emit(1)
 	await get_tree().create_timer(3).timeout
 	prev_scene.emit()
@@ -76,7 +75,7 @@ func _on_player_press_key() -> void:
 
 
 func _on_enemy_calming_down() -> void:
-	_on_set_key_timer_timeout()
+	$SetKeyTimer.start()
 
 
 func _on_player_knock_down() -> void:
@@ -86,4 +85,5 @@ func _on_player_knock_down() -> void:
 func _on_player_miss() -> void:
 	$PressKeyTimer.stop()
 	$SetKeyTimer.stop()
+	$Message.hide()
 	failed_capture.emit(1)

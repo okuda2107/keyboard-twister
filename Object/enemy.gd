@@ -11,6 +11,7 @@ signal calming_down
 func _process(delta: float) -> void:
 	if canAttack:
 		attack_player.emit(delta * damage)
+		print(str(hp))
 	if hp <= 0:
 		hp = max_hp
 		canAttack = false
