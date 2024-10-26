@@ -16,3 +16,5 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	$Path2D/PathFollow2D.progress += speed * delta
+	if $Path2D/PathFollow2D.progress_ratio == 1.0:
+		queue_free()
