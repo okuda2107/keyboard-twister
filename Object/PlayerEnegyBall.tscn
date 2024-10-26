@@ -33,4 +33,4 @@ texture = ExtResource("2_3k2gr")
 visible = false
 texture = ExtResource("3_0llvf")
 
-[connection signal="area_entered" from="Path2D/PathFollow2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Path2D/PathFollow2D/Area2D" to="." method="_on_area_2d_body_entered"]

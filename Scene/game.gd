@@ -95,7 +95,6 @@ func _on_player_miss() -> void:
 
 
 func _on_player_attack_enemy(damage: int) -> void:
-	randomize()
 	var x = randi_range(0, 1300)
 	var y = randi_range(0, 700)
 	var eb = player_enegy_ball.instantiate()
@@ -107,7 +106,6 @@ func _on_player_attack_enemy(damage: int) -> void:
 
 
 func _on_enemy_attack_player(damage: int) -> void:
-	randomize()
 	var x = randi_range(0, 1300)
 	var y = randi_range(0, 700)
 	var eb = enemy_enegy_ball.instantiate()

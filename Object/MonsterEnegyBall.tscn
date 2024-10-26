@@ -33,3 +33,5 @@ texture = ExtResource("2_b4g0k")
 [node name="Bomb" type="Sprite2D" parent="Path2D/PathFollow2D/Area2D"]
 visible = false
 texture = ExtResource("3_norwd")
+
+[connection signal="body_entered" from="Path2D/PathFollow2D/Area2D" to="." method="_on_area_2d_body_entered"]
