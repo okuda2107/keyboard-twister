@@ -34,12 +34,12 @@ func _input(event: InputEvent) -> void:
 func show_count() -> void:
 	$Title.hide()
 	$Button.hide()
-	
+
 	for i in range(3, 0, -1):
 		$Message.text = str(i)
 		$Message.show()
 		await get_tree().create_timer(1.0).timeout
-	
+
 	$Message.text = "Go !!!"
 	$Message.show()
 	await get_tree().create_timer(1.0).timeout
@@ -48,4 +48,3 @@ func show_count() -> void:
 func show_message(text):
 	$Message.text = text
 	$Message.show()
-	
