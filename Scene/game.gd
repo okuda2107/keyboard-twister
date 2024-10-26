@@ -2,6 +2,11 @@ extends Node2D
 
 signal prev_scene
 
+@onready var player_enegy_ball = preload("res://Object/PlayerEnegyBall.tscn")
+@onready var enemy_enegy_ball = preload("res://Object/MonsterEnegyBall.tscn")
+
+@export var ball_speed = 250
+
 var rng = RandomNumberGenerator.new()
 signal set_key(Key)
 signal failed_capture(count: int)
@@ -11,7 +16,7 @@ signal show_result(score: int)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_on_set_key_timer_timeout()
-
+	randomize()
 
 func game_over() -> void:
 	self.set_process(false)
@@ -87,3 +92,27 @@ func _on_player_miss() -> void:
 	$SetKeyTimer.stop()
 	$Message.hide()
 	failed_capture.emit(1)
+
+
+func _on_player_attack_enemy(damage: int) -> void:
+	randomize()
+	var x = randi_range(0, 1300)
+	var y = randi_range(0, 700)
+	var eb = player_enegy_ball.instantiate()
+	eb.point = Vector2(x, y)
+	eb.from_vec = $Player.position
+	eb.to_vec = $Enemy.position
+	eb.speed = ball_speed
+	add_child(eb)
+
+
+func _on_enemy_attack_player(damage: int) -> void:
+	randomize()
+	var x = randi_range(0, 1300)
+	var y = randi_range(0, 700)
+	var eb = enemy_enegy_ball.instantiate()
+	eb.point = Vector2(x, y)
+	eb.from_vec = $Enemy.position
+	eb.to_vec = $Player.position
+	eb.speed = ball_speed
+	add_child(eb)

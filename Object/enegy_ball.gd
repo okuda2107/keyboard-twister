@@ -5,9 +5,6 @@ extends Node2D
 var point = Vector2(0, 0)
 @export var speed = 250
 
-func _init(pos: Vector2) -> void:
-	point = pos
-
 func _ready() -> void:
 	var curve = $Path2D.get_curve()
 	curve.add_point(from_vec, Vector2.ZERO, point - from_vec)

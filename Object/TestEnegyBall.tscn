@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8ti2q80ohtoo"]
+
+[ext_resource type="Script" path="res://Object/test_enegy_ball.gd" id="1_08ivb"]
+
+[node name="TestEnegyBall" type="Node2D"]
+script = ExtResource("1_08ivb")
