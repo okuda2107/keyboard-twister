@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var enegy_ball = preload("res://Object/PlayerEnegyBall.tscn")
+
 @export var hp = 100
 @export var damage = 10
 const keycode_array: Array[Key] = [
@@ -37,11 +39,12 @@ signal press_key
 signal miss
 signal attack_enemy(damage: int)
 signal knock_down
+signal first_capture
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
 	press_keycode_array = []
-
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -51,10 +54,15 @@ func _input(event: InputEvent) -> void:
 		if event.is_pressed():
 			if event.keycode == press_keycode:
 				press_keycode_array.append(press_keycode)
+				if press_keycode_array.size() == 1:
+					first_capture.emit()
 				press_key.emit()
 			else:
-				miss_press()
+				print('miss')
 		if event.is_pressed() and is_attack_mode:
+			var x = randi_range(0, 1300)
+			var y = randi_range(0, 700)
+			add_child(enegy_ball.new(Vector2(x, y)))
 			attack_enemy.emit(damage)
 
 func miss_press() -> void:

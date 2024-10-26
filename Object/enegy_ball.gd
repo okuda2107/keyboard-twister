@@ -11,10 +11,15 @@ func _init(pos: Vector2) -> void:
 func _ready() -> void:
 	var curve = $Path2D.get_curve()
 	curve.add_point(from_vec, Vector2.ZERO, point - from_vec)
-	curve.add_point(to_vec, point - to_vec, Vector2.ZERO)
+	curve.add_point(to_vec, Vector2.ZERO, Vector2.ZERO)
 	$Path2D.set_curve(curve)
 
 func _process(delta: float) -> void:
 	$Path2D/PathFollow2D.progress += speed * delta
-	if $Path2D/PathFollow2D.progress_ratio == 1.0:
-		queue_free()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	$Path2D/PathFollow2D/Area2D/Bomb.show()
+	$Path2D/PathFollow2D/Area2D/EnagyBall.hide()
+	await get_tree().create_timer(1).timeout
+	queue_free()
