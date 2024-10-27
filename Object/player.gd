@@ -33,12 +33,11 @@ const keycode_array: Array[Key] = [
 ]
 var press_keycode_array: Array[Key] = []
 var press_keycode: Key
-var is_attack_mode = false
-signal press_key
+
 signal miss
-signal attack_enemy(damage: int)
+
 signal knock_down
-signal first_capture
+
 signal capturing(value)
 
 # Called when the node enters the scene tree for the first time.
@@ -52,26 +51,41 @@ func _process(delta: float) -> void:
 # もっといいやり方ないかな？
 var flag = true
 var capture_flag = false
+var wait_for_press_flag = false
+var is_capture_mode = false
+var is_attack_mode = false
+
+signal press_key
+signal first_press_key
+signal capture_enemy(damage)
+signal attack_enemy(damage: int)
+signal release_key
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		for keycode in press_keycode_array:
-			if event.keycode == keycode and event.is_released():
-				miss_press()
-			else:
-				capture_flag = true
+		if event.is_released():
+			if event.keycode in press_keycode_array:
+				press_keycode_array.clear()
+				is_attack_mode = true
+				release_key.emit()
+				return
+
 		if event.is_pressed():
-			if event.keycode == press_keycode and flag:
-				flag = false
-				press_keycode_array.append(press_keycode)
-				if press_keycode_array.size() == 1:
-					first_capture.emit()
-				press_key.emit()
-				print(press_keycode_array)
-			elif not event.keycode in press_keycode_array and flag:
-				print('miss')
-		if event.is_pressed() and is_attack_mode:
-			attack_enemy.emit(damage)
+			if wait_for_press_flag:
+				if event.keycode == press_keycode:
+					wait_for_press_flag = false
+					press_keycode_array.append(press_keycode)
+					if press_keycode_array.size() == 1:
+						first_press_key.emit()
+					press_key.emit()
+				elif not event.keycode in press_keycode_array:
+					pass # miss press
+
+			if is_capture_mode:
+				capture_enemy.emit()
+
+			if is_attack_mode:
+				attack_enemy.emit()
 
 
 func miss_press() -> void:

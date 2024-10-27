@@ -15,6 +15,8 @@ ball_speed = 1000
 process_mode = 1
 position = Vector2(650, 650)
 hp = 1
+damage = 1
+capture_value = 1
 
 [node name="SetKeyTimer" type="Timer" parent="."]
 process_mode = 1
@@ -45,7 +47,6 @@ position = Vector2(650, 210)
 [connection signal="attack_enemy" from="Player" to="." method="_on_player_attack_enemy"]
 [connection signal="attack_enemy" from="Player" to="Enemy" method="_on_player_attack_enemy"]
 [connection signal="capturing" from="Player" to="Enemy" method="_on_capture_process"]
-[connection signal="first_capture" from="Player" to="Barrier" method="_capture"]
 [connection signal="knock_down" from="Player" to="." method="_on_player_knock_down"]
 [connection signal="miss" from="Player" to="." method="_on_player_miss"]
 [connection signal="miss" from="Player" to="Barrier" method="_break"]
