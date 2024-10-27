@@ -43,6 +43,9 @@ signal first_capture
 func _ready() -> void:
 	press_keycode_array = []
 
+# もっといいやり方ないかな？
+var flag = true
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		for keycode in press_keycode_array:
@@ -58,6 +61,7 @@ func _input(event: InputEvent) -> void:
 				print('miss')
 		if event.is_pressed() and is_attack_mode:
 			attack_enemy.emit(damage)
+
 
 func miss_press() -> void:
 	press_keycode_array.clear()

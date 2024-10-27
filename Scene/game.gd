@@ -77,6 +77,7 @@ func _on_player_press_key() -> void:
 	$Message.hide()
 	$PressKeyTimer.stop()
 	$SetKeyTimer.start()
+	print('debug')
 
 
 func _on_enemy_calming_down() -> void:
