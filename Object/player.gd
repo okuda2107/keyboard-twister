@@ -52,12 +52,14 @@ func _input(event: InputEvent) -> void:
 			if event.keycode == keycode and event.is_released():
 				miss_press()
 		if event.is_pressed():
-			if event.keycode == press_keycode:
+			if event.keycode == press_keycode and flag:
+				flag = false
 				press_keycode_array.append(press_keycode)
 				if press_keycode_array.size() == 1:
 					first_capture.emit()
 				press_key.emit()
-			else:
+				print(press_keycode_array)
+			elif not event.keycode in press_keycode_array and flag:
 				print('miss')
 		if event.is_pressed() and is_attack_mode:
 			attack_enemy.emit(damage)
@@ -68,6 +70,7 @@ func miss_press() -> void:
 	miss.emit()
 
 func receive_keycode(keycode: Key) -> void:
+	flag = true
 	press_keycode = keycode
 
 

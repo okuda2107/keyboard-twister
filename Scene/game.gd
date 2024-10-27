@@ -64,6 +64,9 @@ func _on_set_key_timer_timeout() -> void:
 	rng.randomize()
 	var random_int = rng.randi_range(0, $Player.keycode_array.size()-1)
 	var key_code = $Player.keycode_array[random_int]
+	while key_code in $Player.press_keycode_array:
+		random_int = rng.randi_range(0, $Player.keycode_array.size()-1)
+		key_code = $Player.keycode_array[random_int]
 	var key_string = calc_key(key_code)
 	show_message.emit("Press " + key_string + " !!!")
 	set_key.emit(key_code)
