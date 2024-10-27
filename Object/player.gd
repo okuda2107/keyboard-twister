@@ -85,8 +85,9 @@ func receive_keycode(keycode: Key) -> void:
 	press_keycode = keycode
 
 
-func _on_enemy_attack_player(damage: int) -> void:
+func _on_enemy_attack_player(damage: float) -> void:
 	hp -= damage
+	print(str(hp))
 	if hp <= 0:
 		knock_down.emit()
 
@@ -97,9 +98,3 @@ func _on_game_failed_capture(count: int) -> void:
 
 func _on_enemy_calming_down() -> void:
 	is_attack_mode = false
-
-func _down_anim() -> void:
-	print('debug')
-	var tween = get_tree().create_tween()
-	tween.TRANS_ELASTIC
-	tween.parallel().tween_property(self, "position", Vector2(650, 900), 2)

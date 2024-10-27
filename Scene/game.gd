@@ -84,7 +84,6 @@ func _on_player_press_key() -> void:
 	$Message.hide()
 	$PressKeyTimer.stop()
 	$SetKeyTimer.start()
-	print('debug')
 
 
 func _on_enemy_calming_down() -> void:
@@ -144,6 +143,8 @@ var game_over_flag = false
 func _on_player_down_anim() -> void:
 	print('debug')
 	game_over_flag = true
+	get_tree().call_group("MonsterEnegyBall", "queue_free")
+
 	var tween = create_tween()
 	tween.TRANS_ELASTIC
 	tween.parallel().tween_property($Player, "position", Vector2(650, 900), 2)
