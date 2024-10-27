@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://c44j1n3ff6eye"]
+
+[ext_resource type="Script" path="res://Scene/game.gd" id="1_k1cmv"]
+[ext_resource type="PackedScene" uid="uid://mdkvgvkgt7ej" path="res://Object/Player.tscn" id="2_shy4d"]
+[ext_resource type="PackedScene" uid="uid://c8g8y8qnvrly8" path="res://Object/Message.tscn" id="3_hxl8o"]
+[ext_resource type="PackedScene" uid="uid://b5cjgn0iuobqd" path="res://Object/Enemy.tscn" id="4_ovvyv"]
+[ext_resource type="PackedScene" uid="uid://ods7dy7e57ru" path="res://Object/Barrier.tscn" id="5_i1twp"]
+
+[node name="Game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_k1cmv")
+ball_speed = 1000
+
+[node name="Player" parent="." instance=ExtResource("2_shy4d")]
+process_mode = 1
+position = Vector2(650, 650)
+hp = 1
+
+[node name="SetKeyTimer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 5.0
+
+[node name="PressKeyTimer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 7.0
+
+[node name="Message" parent="." instance=ExtResource("3_hxl8o")]
+visible = false
+
+[node name="Enemy" parent="." instance=ExtResource("4_ovvyv")]
+process_mode = 1
+position = Vector2(650, 170)
+scale = Vector2(4, 4)
+max_capture_hp = 1
+
+[node name="Barrier" parent="." instance=ExtResource("5_i1twp")]
+visible = false
+position = Vector2(650, 210)
+
+[connection signal="failed_capture" from="." to="Player" method="_on_game_failed_capture"]
+[connection signal="failed_capture" from="." to="Enemy" method="_on_game_failed_capture"]
+[connection signal="set_key" from="." to="Player" method="receive_keycode"]
+[connection signal="show_message" from="." to="Message" method="_on_game_show_message"]
+[connection signal="show_result" from="." to="Message" method="_on_game_show_result"]
+[connection signal="attack_enemy" from="Player" to="." method="_on_player_attack_enemy"]
+[connection signal="attack_enemy" from="Player" to="Enemy" method="_on_player_attack_enemy"]
+[connection signal="capturing" from="Player" to="Enemy" method="_on_capture_process"]
+[connection signal="first_capture" from="Player" to="Barrier" method="_capture"]
+[connection signal="knock_down" from="Player" to="." method="_on_player_knock_down"]
+[connection signal="miss" from="Player" to="." method="_on_player_miss"]
+[connection signal="miss" from="Player" to="Barrier" method="_break"]
+[connection signal="press_key" from="Player" to="." method="_on_player_press_key"]
+[connection signal="timeout" from="SetKeyTimer" to="." method="_on_set_key_timer_timeout"]
+[connection signal="timeout" from="PressKeyTimer" to="." method="_on_press_key_timer_timeout"]
+[connection signal="attack_player" from="Enemy" to="." method="_on_enemy_attack_player"]
+[connection signal="attack_player" from="Enemy" to="Player" method="_on_enemy_attack_player"]
+[connection signal="calming_down" from="Enemy" to="." method="_on_enemy_calming_down"]
+[connection signal="calming_down" from="Enemy" to="Player" method="_on_enemy_calming_down"]
+[connection signal="captured" from="Enemy" to="." method="_on_enemy_captured_anim"]

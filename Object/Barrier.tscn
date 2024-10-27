@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://ods7dy7e57ru"]
+
+[ext_resource type="Shader" path="res://Object/Barrier.gdshader" id="1_dy6gr"]
+[ext_resource type="Texture2D" uid="uid://cw7wb3w4kcgy5" path="res://asset/barrier.png" id="1_gq8lr"]
+[ext_resource type="Script" path="res://Object/barrier.gd" id="1_ppjse"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ihu0l"]
+shader = ExtResource("1_dy6gr")
+shader_parameter/alpha = 0.3
+
+[node name="Barrier" type="Node2D"]
+script = ExtResource("1_ppjse")
+
+[node name="Barrier" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ihu0l")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_gq8lr")

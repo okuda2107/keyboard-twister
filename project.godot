@@ -10,6 +10,13 @@ config_version=5
 
 [application]
 
-config/name="space-pinball"
+config/name="keyboard-twister"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1300
+window/size/viewport_height=700
+window/stretch/mode="canvas_items"

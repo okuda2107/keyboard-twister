@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhpxtoe2y6fci"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_k3xhr"]
+[ext_resource type="PackedScene" uid="uid://dkn6f02e5a34r" path="res://Object/Background.tscn" id="2_u4kcn"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_k3xhr")
+
+[node name="Background" parent="." instance=ExtResource("2_u4kcn")]
