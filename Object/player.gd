@@ -1,7 +1,8 @@
 extends Node2D
 
 @export var hp = 100
-@export var damage = 10
+@export var damage = 1
+@export var capture_value = 1
 const keycode_array: Array[Key] = [
 	KEY_A,
 	KEY_B,
@@ -38,19 +39,27 @@ signal miss
 signal attack_enemy(damage: int)
 signal knock_down
 signal first_capture
+signal capturing(value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	press_keycode_array = []
 
+func _process(delta: float) -> void:
+	if capture_flag:
+		capturing.emit(capture_value * press_keycode_array.size() * delta)
+
 # もっといいやり方ないかな？
 var flag = true
+var capture_flag = false
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		for keycode in press_keycode_array:
 			if event.keycode == keycode and event.is_released():
 				miss_press()
+			else:
+				capture_flag = true
 		if event.is_pressed():
 			if event.keycode == press_keycode and flag:
 				flag = false
@@ -66,6 +75,8 @@ func _input(event: InputEvent) -> void:
 
 
 func miss_press() -> void:
+	flag = false
+	capture_flag = false
 	press_keycode_array.clear()
 	miss.emit()
 
@@ -86,3 +97,9 @@ func _on_game_failed_capture(count: int) -> void:
 
 func _on_enemy_calming_down() -> void:
 	is_attack_mode = false
+
+func _down_anim() -> void:
+	print('debug')
+	var tween = get_tree().create_tween()
+	tween.TRANS_ELASTIC
+	tween.parallel().tween_property(self, "position", Vector2(650, 900), 2)

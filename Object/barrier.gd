@@ -28,3 +28,9 @@ func _break() -> void:
 	tween.parallel().tween_method(set_alpha, max_alpha, 0.0, tween_time)
 	tween.play()
 	hide()
+
+func _captured_anim() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.01)
+	tween.parallel().chain().tween_property(self, "scale", Vector2(0, 0), 0.3)
+	tween.play()

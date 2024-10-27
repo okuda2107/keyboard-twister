@@ -15,11 +15,12 @@ signal show_result(score: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().paused = false
 	_on_set_key_timer_timeout()
 	randomize()
 
 func game_over() -> void:
-	self.set_process(false)
+	get_tree().paused = true
 	show_result.emit(1)
 	await get_tree().create_timer(3).timeout
 	prev_scene.emit()
@@ -73,6 +74,9 @@ func _on_set_key_timer_timeout() -> void:
 	$PressKeyTimer.start()
 
 func _on_press_key_timer_timeout() -> void:
+	enemy_attack_anim()
+	_on_player_down_anim()
+	await get_tree().create_timer(1).timeout
 	game_over()
 
 
@@ -88,6 +92,8 @@ func _on_enemy_calming_down() -> void:
 
 
 func _on_player_knock_down() -> void:
+	_on_player_down_anim()
+	await get_tree().create_timer(1).timeout
 	game_over()
 
 
@@ -99,6 +105,8 @@ func _on_player_miss() -> void:
 
 
 func _on_player_attack_enemy(damage: int) -> void:
+	if game_over_flag:
+		return
 	var x = randi_range(0, 1300)
 	var y = randi_range(0, 700)
 	var eb = player_enegy_ball.instantiate()
@@ -110,6 +118,8 @@ func _on_player_attack_enemy(damage: int) -> void:
 
 
 func _on_enemy_attack_player(damage: int) -> void:
+	if game_over_flag:
+		return
 	var x = randi_range(0, 1300)
 	var y = randi_range(0, 700)
 	var eb = enemy_enegy_ball.instantiate()
@@ -118,3 +128,31 @@ func _on_enemy_attack_player(damage: int) -> void:
 	eb.to_vec = $Player.position
 	eb.speed = ball_speed
 	add_child(eb)
+
+func _enemy_captured() -> void:
+	$SetKeyTimer.stop()
+	$PressKeyTimer.stop()
+	_on_enemy_captured_anim()
+
+func enemy_attack_anim() -> void:
+	var timer = get_tree().create_timer(1)
+	while timer.timeout:
+		_on_enemy_attack_player(0)
+
+var game_over_flag = false
+
+func _on_player_down_anim() -> void:
+	print('debug')
+	game_over_flag = true
+	var tween = create_tween()
+	tween.TRANS_ELASTIC
+	tween.parallel().tween_property($Player, "position", Vector2(650, 900), 2)
+	tween.play()
+
+func _on_enemy_captured_anim() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property($Enemy, "scale", Vector2(4.5, 4.5), 0.1)
+	#tween.parallel().tween_property($Barrier, "scale", Vector2(1.1, 1.1), 0.01)
+	tween.tween_property($Enemy, "scale", Vector2(0, 0), 1)
+	#tween.parallel().tween_property($Barrier, "scale", Vector2(0, 0), 0.3)
+	tween.play()
