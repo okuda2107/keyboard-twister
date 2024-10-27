@@ -67,7 +67,6 @@ func _input(event: InputEvent) -> void:
 				if press_keycode_array.size() == 1:
 					first_capture.emit()
 				press_key.emit()
-				print(press_keycode_array)
 			elif not event.keycode in press_keycode_array and flag:
 				print('miss')
 		if event.is_pressed() and is_attack_mode:
@@ -87,7 +86,6 @@ func receive_keycode(keycode: Key) -> void:
 
 func _on_enemy_attack_player(damage: float) -> void:
 	hp -= damage
-	print(str(hp))
 	if hp <= 0:
 		knock_down.emit()
 

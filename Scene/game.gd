@@ -134,26 +134,28 @@ func _enemy_captured() -> void:
 	_on_enemy_captured_anim()
 
 func enemy_attack_anim() -> void:
-	var timer = get_tree().create_timer(1)
-	while timer.timeout:
+	while get_tree().create_timer(1).timeout:
 		_on_enemy_attack_player(0)
 
 var game_over_flag = false
 
 func _on_player_down_anim() -> void:
-	print('debug')
 	game_over_flag = true
-	get_tree().call_group("MonsterEnegyBall", "queue_free")
-
+	$Enemy.set_process(false)
+	$Player.set_process(false)
+	$Barrier.set_process(false)
+	get_tree().call_group("enegy_ball", "queue_free")
 	var tween = create_tween()
 	tween.TRANS_ELASTIC
-	tween.parallel().tween_property($Player, "position", Vector2(650, 900), 2)
+	tween.parallel().tween_property($Player, "position", Vector2(650, 900), 3)
 	tween.play()
 
 func _on_enemy_captured_anim() -> void:
+	game_over_flag = true
+	$Enemy.set_process(false)
+	$Player.set_process(false)
+	$Barrier.set_process(false)
 	var tween = get_tree().create_tween()
-	tween.tween_property($Enemy, "scale", Vector2(4.5, 4.5), 0.1)
-	#tween.parallel().tween_property($Barrier, "scale", Vector2(1.1, 1.1), 0.01)
-	tween.tween_property($Enemy, "scale", Vector2(0, 0), 1)
-	#tween.parallel().tween_property($Barrier, "scale", Vector2(0, 0), 0.3)
+	tween.tween_property($Enemy, "scale", Vector2(0, 0), 0.3)
+	tween.parallel().tween_property($Barrier, "scale", Vector2(0, 0), 0.3)
 	tween.play()

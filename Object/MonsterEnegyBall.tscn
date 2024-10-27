@@ -9,7 +9,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1odl"]
 radius = 41.0488
 
-[node name="EnegyBall" type="Node2D"]
+[node name="EnegyBall" type="Node2D" groups=["enegy_ball"]]
 script = ExtResource("1_jr1jl")
 to_vec = Vector2(1300, 700)
 
