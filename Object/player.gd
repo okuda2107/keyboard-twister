@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var hp = 100
+@export var max_hp = 100
+@onready var hp = max_hp
 @export var damage = 1
 @export var capture_value = 1
 const keycode_array: Array[Key] = [

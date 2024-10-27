@@ -1,3 +1,65 @@
-[gd_scene format=3 uid="uid://b6u1144oi5mnd"]
+[gd_scene load_steps=2 format=3 uid="uid://b6u1144oi5mnd"]
 
-[node name="Hud" type="Node2D"]
+[ext_resource type="FontFile" uid="uid://cpwvjafftg8yk" path="res://asset/fonts/Xolonium-Regular.ttf" id="1_5qebd"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="EnemyHP" type="ProgressBar" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("1_5qebd")
+
+[node name="EnemyAnger" type="ProgressBar" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = 70.0
+offset_right = -30.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("1_5qebd")
+
+[node name="PlayerHP" type="ProgressBar" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 125.0
+offset_top = -50.0
+offset_right = 445.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_5qebd")
+
+[node name="EnemyHPLabel" type="Label" parent="."]
+offset_left = 780.0
+offset_top = 30.0
+offset_right = 936.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("1_5qebd")
+theme_override_font_sizes/font_size = 21
+text = "Monster's HP:"
+
+[node name="EnemyAngerLabel" type="Label" parent="."]
+offset_left = 746.0
+offset_top = 70.0
+offset_right = 936.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("1_5qebd")
+theme_override_font_sizes/font_size = 21
+text = "Monster's Anger:"
+
+[node name="PlayerHPLabel" type="Label" parent="."]
+offset_left = 17.0
+offset_top = 650.0
+offset_right = 92.0
+offset_bottom = 680.0
+theme_override_fonts/font = ExtResource("1_5qebd")
+theme_override_font_sizes/font_size = 21
+text = "Your HP:"

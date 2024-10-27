@@ -19,6 +19,14 @@ func _ready() -> void:
 	_on_set_key_timer_timeout()
 	randomize()
 
+func _process(delta: float) -> void:
+	$Hud/EnemyHP.value = $Enemy.capture_hp / $Enemy.max_capture_hp * 100
+	$Hud/PlayerHP.value = $Player.hp / $Player.max_hp * 100
+	if $Enemy.canAttack and not game_over_flag:
+		$Hud/EnemyAnger.value = $Enemy.hp / $Enemy.max_hp * 100
+	else:
+		$Hud/EnemyAnger.value = 0
+
 func game_over() -> void:
 	get_tree().paused = true
 	show_result.emit(1)
