@@ -15,6 +15,7 @@ ball_speed = 1000
 [node name="Player" parent="." instance=ExtResource("2_shy4d")]
 process_mode = 1
 position = Vector2(650, 650)
+max_hp = 10
 
 [node name="SetKeyTimer" type="Timer" parent="."]
 process_mode = 1
@@ -31,6 +32,8 @@ visible = false
 process_mode = 1
 position = Vector2(650, 170)
 scale = Vector2(4, 4)
+max_hp = 10
+max_capture_hp = 10
 
 [node name="Barrier" parent="." instance=ExtResource("5_i1twp")]
 visible = false
@@ -41,8 +44,6 @@ position = Vector2(650, 210)
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="failed_capture" from="." to="Player" method="_on_game_failed_capture"]
-[connection signal="failed_capture" from="." to="Enemy" method="_on_game_failed_capture"]
 [connection signal="set_key" from="." to="Player" method="receive_keycode"]
 [connection signal="show_message" from="." to="Message" method="_on_game_show_message"]
 [connection signal="show_result" from="." to="Message" method="_on_game_show_result"]
@@ -52,6 +53,7 @@ autostart = true
 [connection signal="first_capture" from="Player" to="Barrier" method="_capture"]
 [connection signal="knock_down" from="Player" to="." method="_on_player_knock_down"]
 [connection signal="miss" from="Player" to="." method="_on_player_miss"]
+[connection signal="miss" from="Player" to="Enemy" method="_on_game_failed_capture"]
 [connection signal="miss" from="Player" to="Barrier" method="_break"]
 [connection signal="press_key" from="Player" to="." method="_on_player_press_key"]
 [connection signal="timeout" from="SetKeyTimer" to="." method="_on_set_key_timer_timeout"]

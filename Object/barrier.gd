@@ -22,7 +22,7 @@ func _capture() -> void:
 	tween.parallel().tween_method(set_alpha, 0.0, max_alpha, tween_time)
 	tween.play()
 
-func _break() -> void:
+func _break(value) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "scale", Vector2(50, 50), tween_time)
 	tween.parallel().tween_method(set_alpha, max_alpha, 0.0, tween_time)

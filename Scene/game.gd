@@ -9,7 +9,6 @@ signal prev_scene
 
 var rng = RandomNumberGenerator.new()
 signal set_key(Key)
-signal failed_capture(count: int)
 signal show_message(message)
 signal show_result(score)
 
@@ -20,11 +19,10 @@ func _ready() -> void:
 	randomize()
 
 func _process(delta: float) -> void:
-	$Hud/EnemyHP.value = $Enemy.capture_hp / $Enemy.max_capture_hp * 100
-	$Hud/PlayerHP.value = $Player.hp / $Player.max_hp * 100
+	$Hud/EnemyHP.value = float($Enemy.capture_hp) / float($Enemy.max_capture_hp) * 100
+	$Hud/PlayerHP.value = float($Player.hp) / float($Player.max_hp) * 100
 	if $Enemy.canAttack and not game_over_flag:
-		print($Enemy.hp, '/', $Enemy.max_hp)
-		$Hud/EnemyAnger.value = $Enemy.hp / $Enemy.max_hp * 100
+		$Hud/EnemyAnger.value = float($Enemy.hp) / float($Enemy.max_hp) * 100
 	else:
 		$Hud/EnemyAnger.value = 0
 	$Message/Label/ProgressBar.value = $PressKeyTimer.time_left / $PressKeyTimer.wait_time * 100
@@ -110,11 +108,10 @@ func _on_player_knock_down() -> void:
 	game_over()
 
 
-func _on_player_miss() -> void:
+func _on_player_miss(value) -> void:
 	$PressKeyTimer.stop()
 	$SetKeyTimer.stop()
 	$Message.hide()
-	failed_capture.emit(1)
 
 
 func _on_player_attack_enemy(damage: int) -> void:

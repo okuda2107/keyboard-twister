@@ -24,7 +24,7 @@ func _on_game_failed_capture(count: int) -> void:
 	canAttack = true
 
 
-func _on_player_attack_enemy(damage: int) -> void:
+func _on_player_attack_enemy(damage) -> void:
 	hp -= damage
 
 func _on_capture_process(value) -> void:
