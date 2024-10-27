@@ -11,7 +11,7 @@ var rng = RandomNumberGenerator.new()
 signal set_key(Key)
 signal failed_capture(count: int)
 signal show_message(message)
-signal show_result(score: int)
+signal show_result(score)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,14 +23,16 @@ func _process(delta: float) -> void:
 	$Hud/EnemyHP.value = $Enemy.capture_hp / $Enemy.max_capture_hp * 100
 	$Hud/PlayerHP.value = $Player.hp / $Player.max_hp * 100
 	if $Enemy.canAttack and not game_over_flag:
+		print($Enemy.hp, '/', $Enemy.max_hp)
 		$Hud/EnemyAnger.value = $Enemy.hp / $Enemy.max_hp * 100
 	else:
 		$Hud/EnemyAnger.value = 0
+	$Message/Label/ProgressBar.value = $PressKeyTimer.time_left / $PressKeyTimer.wait_time * 100
 
 func game_over() -> void:
 	get_tree().paused = true
-	show_result.emit(1)
-	await get_tree().create_timer(3).timeout
+	show_result.emit($Timer.time_left)
+	await get_tree().create_timer(6.5).timeout
 	prev_scene.emit()
 
 func calc_key(key) -> String:
@@ -82,9 +84,13 @@ func _on_set_key_timer_timeout() -> void:
 	$PressKeyTimer.start()
 
 func _on_press_key_timer_timeout() -> void:
+	$Message.hide()
 	enemy_attack_anim()
 	_on_player_down_anim()
-	await get_tree().create_timer(1).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property($Hud/PlayerHP, "value", 0, 1)
+	$Player.hp = 0
+	await get_tree().create_timer(2).timeout
 	game_over()
 
 
@@ -139,11 +145,12 @@ func _on_enemy_attack_player(damage: int) -> void:
 func _enemy_captured() -> void:
 	$SetKeyTimer.stop()
 	$PressKeyTimer.stop()
-	_on_enemy_captured_anim()
+	game_over()
 
 func enemy_attack_anim() -> void:
-	while get_tree().create_timer(1).timeout:
-		_on_enemy_attack_player(0)
+	var tween = get_tree().create_tween()
+	tween.tween_method(_on_enemy_attack_player, 0, 0, 1)
+	await get_tree().create_timer(1).timeout
 
 var game_over_flag = false
 
@@ -167,3 +174,5 @@ func _on_enemy_captured_anim() -> void:
 	tween.tween_property($Enemy, "scale", Vector2(0, 0), 0.3)
 	tween.parallel().tween_property($Barrier, "scale", Vector2(0, 0), 0.3)
 	tween.play()
+	await get_tree().create_timer(1).timeout
+	_enemy_captured()

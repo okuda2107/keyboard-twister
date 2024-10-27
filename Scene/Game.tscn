@@ -15,7 +15,6 @@ ball_speed = 1000
 [node name="Player" parent="." instance=ExtResource("2_shy4d")]
 process_mode = 1
 position = Vector2(650, 650)
-max_hp = 1
 
 [node name="SetKeyTimer" type="Timer" parent="."]
 process_mode = 1
@@ -32,13 +31,15 @@ visible = false
 process_mode = 1
 position = Vector2(650, 170)
 scale = Vector2(4, 4)
-max_capture_hp = 1
 
 [node name="Barrier" parent="." instance=ExtResource("5_i1twp")]
 visible = false
 position = Vector2(650, 210)
 
 [node name="Hud" parent="." instance=ExtResource("6_xeloh")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="failed_capture" from="." to="Player" method="_on_game_failed_capture"]
 [connection signal="failed_capture" from="." to="Enemy" method="_on_game_failed_capture"]

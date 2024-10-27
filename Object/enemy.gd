@@ -3,7 +3,7 @@ extends Node2D
 @export var max_hp = 100
 @export var damage = 10
 @export var max_capture_hp = 100
-var canAttack: bool = false
+@onready var canAttack: bool = false
 signal attack_player(damage: int)
 signal calming_down
 signal captured
