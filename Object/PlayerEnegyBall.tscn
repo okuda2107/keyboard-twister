@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf71gdv4qtxfg"]
+[gd_scene load_steps=7 format=3 uid="uid://cf71gdv4qtxfg"]
 
 [ext_resource type="Script" path="res://Object/enegy_ball.gd" id="1_ykdgh"]
 [ext_resource type="Texture2D" uid="uid://dsw8e0sgrbc0a" path="res://asset/enegy_ball_blue.png" id="2_3k2gr"]
 [ext_resource type="Texture2D" uid="uid://7k3oevql4x3m" path="res://asset/bomb.png" id="3_0llvf"]
+[ext_resource type="AudioStream" uid="uid://ck1vopay8gl5x" path="res://asset/bomb.mp3" id="4_7enr7"]
 
 [sub_resource type="Curve2D" id="Curve2D_cks0s"]
 
@@ -32,5 +33,8 @@ texture = ExtResource("2_3k2gr")
 [node name="Bomb" type="Sprite2D" parent="Path2D/PathFollow2D/Area2D"]
 visible = false
 texture = ExtResource("3_0llvf")
+
+[node name="bomb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7enr7")
 
 [connection signal="body_entered" from="Path2D/PathFollow2D/Area2D" to="." method="_on_area_2d_body_entered"]

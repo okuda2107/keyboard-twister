@@ -30,6 +30,8 @@ func _process(delta: float) -> void:
 func game_over() -> void:
 	get_tree().paused = true
 	show_result.emit($Timer.time_left)
+	$BGM.stop()
+	$Clear.play()
 	await get_tree().create_timer(6.5).timeout
 	prev_scene.emit()
 
@@ -171,5 +173,6 @@ func _on_enemy_captured_anim() -> void:
 	tween.tween_property($Enemy, "scale", Vector2(0, 0), 0.3)
 	tween.parallel().tween_property($Barrier, "scale", Vector2(0, 0), 0.3)
 	tween.play()
+	$CaptureMusic.play()
 	await get_tree().create_timer(1).timeout
 	_enemy_captured()

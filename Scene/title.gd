@@ -29,6 +29,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEvent:
 		if event.is_pressed() and not is_press_any_button:
 			is_press_any_button = true
+			$OK.play()
+			$BGM.stop()
 			show_count()
 
 func show_count() -> void:

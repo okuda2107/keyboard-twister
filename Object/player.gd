@@ -67,7 +67,7 @@ func _input(event: InputEvent) -> void:
 				press_key.emit()
 				return
 			if not event.keycode in press_keycode_array:
-				print('miss')
+				$miss_music.play()
 		if event.is_released():
 			if event.keycode in press_keycode_array:
 				miss_press()
