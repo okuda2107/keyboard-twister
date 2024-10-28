@@ -83,12 +83,15 @@ func _on_set_key_timer_timeout() -> void:
 		random_int = rng.randi_range(0, $Player.keycode_array.size()-1)
 		key_code = $Player.keycode_array[random_int]
 	var key_string = calc_key(key_code)
-	show_message.emit("Press " + key_string + " !!!")
+	show_message.emit("Hold " + key_string + " !!!")
 	set_key.emit(key_code)
 	$PressKeyTimer.start()
 
 func _on_press_key_timer_timeout() -> void:
 	$Message.hide()
+	if $Player.press_keycode_array.size() > 0:
+		$Player.miss_press()
+		return
 	enemy_attack_anim()
 	_on_player_down_anim()
 	var tween = get_tree().create_tween()
