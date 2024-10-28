@@ -6,6 +6,7 @@ signal prev_scene
 @onready var enemy_enegy_ball = preload("res://Object/MonsterEnegyBall.tscn")
 
 @export var ball_speed = 250
+@onready var time = 0
 
 var rng = RandomNumberGenerator.new()
 signal set_key(Key)
@@ -19,6 +20,8 @@ func _ready() -> void:
 	randomize()
 
 func _process(delta: float) -> void:
+	if not game_over_flag:
+		time += delta
 	$Hud/EnemyHP.value = float($Enemy.capture_hp) / float($Enemy.max_capture_hp) * 100
 	$Hud/PlayerHP.value = float($Player.hp) / float($Player.max_hp) * 100
 	if $Enemy.canAttack and not game_over_flag:
@@ -26,10 +29,11 @@ func _process(delta: float) -> void:
 	else:
 		$Hud/EnemyAnger.value = 0
 	$Message/Label/ProgressBar.value = $PressKeyTimer.time_left / $PressKeyTimer.wait_time * 100
+	$Hud/TimeLabel.text = "%10.1f" % time
 
 func game_over() -> void:
 	get_tree().paused = true
-	show_result.emit($Timer.time_left)
+	show_result.emit(time)
 	$BGM.stop()
 	$Clear.play()
 	await get_tree().create_timer(6.5).timeout
@@ -127,6 +131,9 @@ func _on_player_attack_enemy(damage: int) -> void:
 	eb.to_vec = $Enemy.position
 	eb.speed = ball_speed
 	add_child(eb)
+	if $BombIntervalTimer.is_stopped():
+		$BombIntervalTimer.start()
+		$bomb.play()
 
 
 func _on_enemy_attack_player(damage: int) -> void:
@@ -140,6 +147,9 @@ func _on_enemy_attack_player(damage: int) -> void:
 	eb.to_vec = $Player.position
 	eb.speed = ball_speed
 	add_child(eb)
+	if $BombIntervalTimer.is_stopped():
+		$BombIntervalTimer.start()
+		$bomb.play()
 
 func _enemy_captured() -> void:
 	$SetKeyTimer.stop()

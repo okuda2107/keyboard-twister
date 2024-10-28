@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://ods7dy7e57ru"]
+[gd_scene load_steps=7 format=4 uid="uid://ods7dy7e57ru"]
 
 [ext_resource type="Shader" path="res://Object/Barrier.gdshader" id="1_dy6gr"]
 [ext_resource type="Texture2D" uid="uid://cw7wb3w4kcgy5" path="res://asset/barrier.png" id="1_gq8lr"]
 [ext_resource type="Script" path="res://Object/barrier.gd" id="1_ppjse"]
+[ext_resource type="AudioStream" uid="uid://c08a84l14km8y" path="res://asset/barrier_break.mp3" id="4_7tfeg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ihu0l"]
 shader = ExtResource("1_dy6gr")
@@ -26,3 +27,6 @@ volume_db = -9.0
 pitch_scale = 0.5
 
 [node name="Break" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7tfeg")
+volume_db = 4.0
+parameters/looping = false

@@ -16,7 +16,6 @@ func _process(delta: float) -> void:
 	if $Path2D/PathFollow2D.progress_ratio == 1.0:
 		$Path2D/PathFollow2D/Area2D/Bomb.show()
 		$Path2D/PathFollow2D/Area2D/EnagyBall.hide()
-		$bomb.play()
 		await get_tree().create_timer(1).timeout
 		queue_free()
 
