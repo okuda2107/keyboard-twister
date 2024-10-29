@@ -31,9 +31,14 @@ func _process(delta: float) -> void:
 	$Message/Label/ProgressBar.value = $PressKeyTimer.time_left / $PressKeyTimer.wait_time * 100
 	$Hud/TimeLabel.text = "%10.1f" % time
 
+signal show_remain_hp(hp)
+
 func game_over() -> void:
 	get_tree().paused = true
-	show_result.emit(time)
+	if captrue_succeed:
+		show_result.emit(time)
+	else:
+		show_remain_hp.emit($Hud/EnemyHP.value)
 	$BGM.stop()
 	$Clear.play()
 	await get_tree().create_timer(6.5).timeout
@@ -154,9 +159,12 @@ func _on_enemy_attack_player(damage: int) -> void:
 		$BombIntervalTimer.start()
 		$bomb.play()
 
+var captrue_succeed = false
+
 func _enemy_captured() -> void:
 	$SetKeyTimer.stop()
 	$PressKeyTimer.stop()
+	captrue_succeed = true
 	game_over()
 
 func enemy_attack_anim() -> void:

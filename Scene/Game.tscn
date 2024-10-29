@@ -30,7 +30,7 @@ wait_time = 5.0
 
 [node name="PressKeyTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 7.0
+wait_time = 15.0
 
 [node name="Message" parent="." instance=ExtResource("3_hxl8o")]
 visible = false
@@ -71,6 +71,7 @@ autostart = true
 
 [connection signal="set_key" from="." to="Player" method="receive_keycode"]
 [connection signal="show_message" from="." to="Message" method="_on_game_show_message"]
+[connection signal="show_remain_hp" from="." to="Message" method="_on_game_show_remain_hp"]
 [connection signal="show_result" from="." to="Message" method="_on_game_show_result"]
 [connection signal="attack_enemy" from="Player" to="." method="_on_player_attack_enemy"]
 [connection signal="attack_enemy" from="Player" to="Enemy" method="_on_player_attack_enemy"]
