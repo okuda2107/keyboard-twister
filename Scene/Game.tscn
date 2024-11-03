@@ -40,7 +40,7 @@ process_mode = 1
 position = Vector2(650, 170)
 scale = Vector2(4, 4)
 damage = 3
-max_capture_hp = 500
+max_capture_hp = 250
 
 [node name="Barrier" parent="." instance=ExtResource("5_i1twp")]
 visible = false
