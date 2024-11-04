@@ -56,15 +56,17 @@ var capture_flag = false
 var attack_mode_press = true
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
 		if event.is_pressed() and flag:
 			if event.keycode == press_keycode:
+				print('before')
+				print(event)
 				flag = false
 				capture_flag = true
 				press_keycode_array.append(press_keycode)
 				if press_keycode_array.size() == 1:
 					first_capture.emit()
 				press_key.emit()
+				print('after')
 				return
 			if not event.keycode in press_keycode_array:
 				$miss_music.play()
